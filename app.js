@@ -360,8 +360,6 @@ async () => {
     return;
   }
 
-  // ANTI CHEAT
-
   const now = Date.now();
 
   if(now - lastAdWatch < 25000){
@@ -567,7 +565,7 @@ function giveDailyReward(){
 
 
 // =========================
-// LEADERBOARD UI
+// LEADERBOARD
 // =========================
 
 async function loadLeaderboard(){
@@ -628,15 +626,25 @@ async function loadLeaderboard(){
 
 
 // =========================
-// WITHDRAW
+// WITHDRAW SYSTEM
 // =========================
 
 if(withdrawBtn){
 
   withdrawBtn.addEventListener(
+
   'click',
 
-  () => {
+  async () => {
+
+    if(!currentUser){
+
+      alert(
+      'Login first'
+      );
+
+      return;
+    }
 
     const wallet =
 
@@ -652,6 +660,45 @@ if(withdrawBtn){
 
       return;
     }
+
+    if(balance < 100){
+
+      alert(
+      'Minimum withdraw is 100 MIRA'
+      );
+
+      return;
+    }
+
+    const withdrawRef =
+
+    doc(
+      db,
+      'withdraws',
+      Date.now().toString()
+    );
+
+    await setDoc(withdrawRef,{
+
+      uid:
+      currentUser.uid,
+
+      email:
+      currentUser.email,
+
+      wallet:
+      wallet,
+
+      amount:
+      balance,
+
+      status:
+      'pending',
+
+      created:
+      Date.now()
+
+    });
 
     alert(
     'Withdraw request sent!'
