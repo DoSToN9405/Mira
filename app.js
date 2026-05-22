@@ -17,8 +17,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  onAuthStateChanged,
-  signOut
+  onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -126,7 +125,7 @@ document.getElementById(
 
 
 // =========================
-// USER
+// USER DATA
 // =========================
 
 let currentUser = null;
@@ -137,6 +136,8 @@ let isCooldown = false;
 
 let cooldownTime = 30;
 
+let loginBtn = null;
+
 
 // =========================
 // GOOGLE LOGIN
@@ -146,23 +147,23 @@ createLoginButton();
 
 function createLoginButton(){
 
-  const btn =
+  loginBtn =
   document.createElement('button');
 
-  btn.innerText =
+  loginBtn.innerText =
   'Login with Google';
 
-  btn.className =
+  loginBtn.className =
   'earn-btn';
 
-  btn.style.marginBottom =
+  loginBtn.style.marginBottom =
   '15px';
 
   document.getElementById(
     'home-page'
-  ).prepend(btn);
+  ).prepend(loginBtn);
 
-  btn.addEventListener(
+  loginBtn.addEventListener(
   'click',
 
   async () => {
@@ -200,6 +201,14 @@ async (user) => {
   if(user){
 
     currentUser = user;
+
+    // HIDE LOGIN BUTTON
+
+    if(loginBtn){
+
+      loginBtn.remove();
+
+    }
 
     await loadUser();
 
@@ -360,7 +369,7 @@ async () => {
 
 
 // =========================
-// REWARD
+// REWARD USER
 // =========================
 
 async function rewardUser(){
