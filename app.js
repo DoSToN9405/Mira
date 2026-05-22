@@ -1,64 +1,211 @@
+// =========================
+// FIREBASE IMPORT
+// =========================
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+// =========================
+// FIREBASE CONFIG
+// =========================
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyAYrt_QwlzVqacTP8m3YwXRWe3a3I-OX_s",
+
+  authDomain:
+  "mira-network-309e5.firebaseapp.com",
+
+  projectId:
+  "mira-network-309e5",
+
+  storageBucket:
+  "mira-network-309e5.firebasestorage.app",
+
+  messagingSenderId:
+  "1010813141447",
+
+  appId:
+  "1:1010813141447:web:bf94bc8cedbb443915d9e2",
+
+  measurementId:
+  "G-61EQRHKHTP"
+
+};
+
+
+// =========================
+// INIT FIREBASE
+// =========================
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+
+// =========================
+// USER ID
+// =========================
+
+let userId =
+localStorage.getItem('mira_user_id');
+
+if(!userId){
+
+  userId =
+  'user_' +
+  Math.random()
+  .toString(36)
+  .substring(2,12);
+
+  localStorage.setItem(
+    'mira_user_id',
+    userId
+  );
+
+}
+
+
+// =========================
+// ELEMENTS
+// =========================
+
 const balanceDisplay =
 document.getElementById('token-balance');
 
 const walletBalancePage =
-document.getElementById('wallet-balance-page');
+document.getElementById(
+'wallet-balance-page'
+);
 
 const watchAdBtn =
-document.getElementById('watch-ad-btn');
+document.getElementById(
+'watch-ad-btn'
+);
 
 const statusMsg =
-document.getElementById('status-msg');
+document.getElementById(
+'status-msg'
+);
 
 const cooldownText =
-document.getElementById('cooldown-text');
+document.getElementById(
+'cooldown-text'
+);
 
 const timerDisplay =
-document.getElementById('timer');
+document.getElementById(
+'timer'
+);
 
 const navItems =
-document.querySelectorAll('.nav-item');
+document.querySelectorAll(
+'.nav-item'
+);
 
 const pages =
-document.querySelectorAll('.page');
+document.querySelectorAll(
+'.page'
+);
 
 const clickSound =
-document.getElementById('click-sound');
+document.getElementById(
+'click-sound'
+);
 
-let balance =
-parseFloat(
-localStorage.getItem('user_balance')
-) || 0;
+
+// =========================
+// USER DATA
+// =========================
+
+let balance = 0;
 
 let isCooldown = false;
 
 let cooldownTime = 30;
 
-updateBalance();
+
+// =========================
+// LOAD USER
+// =========================
+
+loadUser();
+
+async function loadUser(){
+
+  const userRef =
+  doc(db,'users',userId);
+
+  const userSnap =
+  await getDoc(userRef);
+
+  if(userSnap.exists()){
+
+    balance =
+    userSnap.data().balance || 0;
+
+  }else{
+
+    await setDoc(userRef,{
+      balance:0
+    });
+
+  }
+
+  updateBalance();
+
+}
+
+
+// =========================
+// NAVIGATION
+// =========================
 
 navItems.forEach(item => {
 
-  item.addEventListener('click', () => {
+  item.addEventListener('click',() => {
 
     const pageId =
-    item.getAttribute('data-page');
+    item.getAttribute(
+      'data-page'
+    );
 
     pages.forEach(page => {
 
-      page.style.display = 'none';
+      page.style.display =
+      'none';
 
     });
 
-    document.getElementById(pageId)
-    .style.display = 'block';
+    document.getElementById(
+      pageId
+    ).style.display = 'block';
 
     navItems.forEach(btn => {
 
-      btn.classList.remove('active');
+      btn.classList.remove(
+        'active'
+      );
 
     });
 
-    item.classList.add('active');
+    item.classList.add(
+      'active'
+    );
 
     clickSound.play();
 
@@ -66,18 +213,17 @@ navItems.forEach(item => {
 
 });
 
+
+// =========================
+// WATCH AD
+// =========================
+
 watchAdBtn.addEventListener(
 'click',
 
 async () => {
 
   if(isCooldown) return;
-
-  if(navigator.vibrate){
-
-    navigator.vibrate(60);
-
-  }
 
   clickSound.play();
 
@@ -92,7 +238,7 @@ async () => {
   try{
 
     if(typeof show_9027378
-       !== 'function'){
+      !== 'function'){
 
       throw new Error(
         'SDK not loaded'
@@ -109,7 +255,8 @@ async () => {
     statusMsg.innerText =
     'Ad unavailable';
 
-    watchAdBtn.disabled = false;
+    watchAdBtn.disabled =
+    false;
 
     watchAdBtn.innerHTML =
     '▶ Watch Ad +10 MIRA';
@@ -118,16 +265,23 @@ async () => {
 
 });
 
-function rewardUser(){
+
+// =========================
+// REWARD
+// =========================
+
+async function rewardUser(){
 
   balance += 10;
 
-  localStorage.setItem(
-    'user_balance',
-    balance
-  );
+  updateBalance();
 
-  animateBalance();
+  const userRef =
+  doc(db,'users',userId);
+
+  await updateDoc(userRef,{
+    balance: increment(10)
+  });
 
   statusMsg.innerText =
   '+10 MIRA added';
@@ -139,6 +293,11 @@ function rewardUser(){
 
 }
 
+
+// =========================
+// UPDATE BALANCE
+// =========================
+
 function updateBalance(){
 
   balanceDisplay.innerText =
@@ -149,35 +308,10 @@ function updateBalance(){
 
 }
 
-function animateBalance(){
 
-  let start = balance - 10;
-
-  let end = balance;
-
-  let current = start;
-
-  const interval = setInterval(() => {
-
-    current += 0.5;
-
-    balanceDisplay.innerText =
-    current.toFixed(2);
-
-    walletBalancePage.innerText =
-    current.toFixed(2);
-
-    if(current >= end){
-
-      clearInterval(interval);
-
-      updateBalance();
-
-    }
-
-  },20);
-
-}
+// =========================
+// COOLDOWN
+// =========================
 
 function startCooldown(){
 
@@ -192,7 +326,8 @@ function startCooldown(){
   timerDisplay.innerText =
   currentTime;
 
-  const interval = setInterval(() => {
+  const interval =
+  setInterval(() => {
 
     currentTime--;
 
@@ -208,7 +343,8 @@ function startCooldown(){
       cooldownText.classList
       .add('hidden');
 
-      watchAdBtn.disabled = false;
+      watchAdBtn.disabled =
+      false;
 
       watchAdBtn.innerHTML =
       '▶ Watch Ad +10 MIRA';
