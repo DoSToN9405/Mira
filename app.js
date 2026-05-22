@@ -888,3 +888,52 @@ async function loadWithdrawRequests(){
   });
 
 }
+
+// =========================
+// TELEGRAM MINI APP
+// =========================
+
+if(window.Telegram){
+
+  Telegram.WebApp.ready();
+
+  Telegram.WebApp.expand();
+
+  const tgUser =
+  Telegram.WebApp.initDataUnsafe.user;
+
+  if(tgUser){
+
+    const tgCard =
+    document.createElement('div');
+
+    tgCard.className =
+    'telegram-card';
+
+    tgCard.innerHTML =
+
+    `
+    <img
+    src="https://t.me/i/userpic/320/${tgUser.username}.jpg"
+    class="telegram-avatar">
+
+    <div>
+
+      <div class="telegram-name">
+      ${tgUser.first_name}
+      </div>
+
+      <div class="telegram-username">
+      @${tgUser.username}
+      </div>
+
+    </div>
+    `;
+
+    document.getElementById(
+      'telegram-user'
+    ).appendChild(tgCard);
+
+  }
+
+}
