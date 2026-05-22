@@ -1,7 +1,3 @@
-/* ========================= */
-/* RESET */
-/* ========================= */
-
 *{
   margin:0;
   padding:0;
@@ -18,10 +14,6 @@ body{
   padding:20px;
   overflow-x:hidden;
 }
-
-/* ========================= */
-/* BACKGROUND BLUR */
-/* ========================= */
 
 .bg-blur{
   position:fixed;
@@ -48,10 +40,6 @@ body{
   opacity:.4;
 }
 
-/* ========================= */
-/* APP */
-/* ========================= */
-
 .app{
   width:100%;
   max-width:420px;
@@ -61,15 +49,10 @@ body{
   padding-bottom:120px;
 }
 
-/* ========================= */
-/* TOPBAR */
-/* ========================= */
-
 .topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:8px;
 }
 
 .small-text{
@@ -94,10 +77,6 @@ body{
   font-weight:bold;
   box-shadow:0 0 25px rgba(37,99,235,.6);
 }
-
-/* ========================= */
-/* WALLET CARD */
-/* ========================= */
 
 .wallet-card{
   background:linear-gradient(135deg,#101827,#162033);
@@ -140,27 +119,6 @@ body{
   font-size:18px;
 }
 
-.wallet-bottom{
-  display:flex;
-  justify-content:space-between;
-  margin-top:25px;
-}
-
-.wallet-bottom p{
-  color:#94a3b8;
-  font-size:12px;
-}
-
-.wallet-bottom strong{
-  display:block;
-  margin-top:5px;
-  font-size:15px;
-}
-
-/* ========================= */
-/* PROMO CARD */
-/* ========================= */
-
 .promo-card{
   background:linear-gradient(
     135deg,
@@ -170,7 +128,6 @@ body{
 
   border-radius:24px;
   padding:20px;
-
   border:1px solid rgba(255,255,255,.08);
 
   display:flex;
@@ -185,17 +142,24 @@ body{
 .promo-card p{
   margin-top:8px;
   color:#cbd5e1;
-  line-height:1.5;
-  font-size:14px;
 }
 
 .promo-icon{
   font-size:42px;
+  animation:rotateCoin 3s linear infinite;
 }
 
-/* ========================= */
-/* MAIN ACTION */
-/* ========================= */
+@keyframes rotateCoin{
+
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(360deg);
+  }
+
+}
 
 .main-action{
   background:#111827;
@@ -209,6 +173,7 @@ body{
   border:none;
   border-radius:22px;
   padding:20px;
+
   background:linear-gradient(
     135deg,
     #2563eb,
@@ -222,66 +187,51 @@ body{
 
   transition:.3s;
 
-  box-shadow:0 10px 30px rgba(37,99,235,.4);
+  animation:glow 2s infinite;
+}
+
+@keyframes glow{
+
+  0%{
+    box-shadow:0 0 10px rgba(37,99,235,.4);
+  }
+
+  50%{
+    box-shadow:0 0 30px rgba(37,99,235,.8);
+  }
+
+  100%{
+    box-shadow:0 0 10px rgba(37,99,235,.4);
+  }
+
 }
 
 .earn-btn:hover{
-  transform:translateY(-3px) scale(1.01);
-}
-
-.earn-btn:active{
-  transform:scale(.98);
+  transform:translateY(-3px);
 }
 
 .status-msg{
-  margin-top:16px;
+  margin-top:15px;
   text-align:center;
   min-height:20px;
-  color:#facc15;
 }
 
 .cooldown{
   margin-top:10px;
   text-align:center;
   color:#fb7185;
-  font-weight:600;
 }
 
 .hidden{
   display:none;
 }
 
-/* ========================= */
-/* STATS */
-/* ========================= */
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
 .stat-box{
   background:#111827;
-  border-radius:22px;
+  border-radius:20px;
   padding:20px;
   border:1px solid rgba(255,255,255,.08);
 }
-
-.stat-box h3{
-  color:#94a3b8;
-  font-size:13px;
-}
-
-.stat-box p{
-  margin-top:8px;
-  font-size:20px;
-  font-weight:700;
-}
-
-/* ========================= */
-/* BOTTOM NAV */
-/* ========================= */
 
 .bottom-nav{
   position:fixed;
@@ -312,26 +262,15 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
+
   gap:5px;
 
   cursor:pointer;
 }
 
-.nav-item span{
-  font-size:22px;
-}
-
-.nav-item p{
-  font-size:12px;
-}
-
 .nav-item.active{
   color:#38bdf8;
 }
-
-/* ========================= */
-/* PAGE ANIMATION */
-/* ========================= */
 
 .page{
   animation:fade .35s ease;
@@ -350,3 +289,57 @@ body{
   }
 
 }
+
+#splash-screen{
+  position:fixed;
+  inset:0;
+  background:#070b14;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+
+  animation:hideSplash .8s ease forwards;
+  animation-delay:2s;
+}
+
+.loader-logo{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#2563eb,#06b6d4);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:30px;
+  font-weight:800;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+@keyframes hideSplash{
+
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
+
+  }
