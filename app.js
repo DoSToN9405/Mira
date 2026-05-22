@@ -7,9 +7,25 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  increment
+  increment,
+  collection,
+  getDocs
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+// =========================
+// FIREBASE CONFIG
+// =========================
 
 const firebaseConfig = {
 
@@ -36,32 +52,32 @@ const firebaseConfig = {
 
 };
 
+
+// =========================
+// INIT
+// =========================
+
 const app =
 initializeApp(firebaseConfig);
 
 const db =
 getFirestore(app);
 
-let userId =
-localStorage.getItem('mira_user_id');
+const auth =
+getAuth(app);
 
-if(!userId){
+const provider =
+new GoogleAuthProvider();
 
-  userId =
-  'user_' +
-  Math.random()
-  .toString(36)
-  .substring(2,12);
 
-  localStorage.setItem(
-    'mira_user_id',
-    userId
-  );
-
-}
+// =========================
+// ELEMENTS
+// =========================
 
 const balanceDisplay =
-document.getElementById('token-balance');
+document.getElementById(
+'token-balance'
+);
 
 const walletBalancePage =
 document.getElementById(
@@ -108,18 +124,104 @@ document.getElementById(
 'withdraw-btn'
 );
 
+
+// =========================
+// USER
+// =========================
+
+let currentUser = null;
+
 let balance = 0;
 
 let isCooldown = false;
 
 let cooldownTime = 30;
 
-loadUser();
+
+// =========================
+// GOOGLE LOGIN
+// =========================
+
+createLoginButton();
+
+function createLoginButton(){
+
+  const btn =
+  document.createElement('button');
+
+  btn.innerText =
+  'Login with Google';
+
+  btn.className =
+  'earn-btn';
+
+  btn.style.marginBottom =
+  '15px';
+
+  document.getElementById(
+    'home-page'
+  ).prepend(btn);
+
+  btn.addEventListener(
+  'click',
+
+  async () => {
+
+    try{
+
+      await signInWithPopup(
+        auth,
+        provider
+      );
+
+    }catch(error){
+
+      alert(
+      'Login failed'
+      );
+
+    }
+
+  });
+
+}
+
+
+// =========================
+// AUTH STATE
+// =========================
+
+onAuthStateChanged(
+
+auth,
+
+async (user) => {
+
+  if(user){
+
+    currentUser = user;
+
+    await loadUser();
+
+    loadLeaderboard();
+
+  }
+
+});
+
+
+// =========================
+// LOAD USER
+// =========================
 
 async function loadUser(){
 
   const userRef =
-  doc(db,'users',userId);
+  doc(
+    db,
+    'users',
+    currentUser.uid
+  );
 
   const userSnap =
   await getDoc(userRef);
@@ -132,7 +234,18 @@ async function loadUser(){
   }else{
 
     await setDoc(userRef,{
-      balance:0
+
+      name:
+      currentUser.displayName,
+
+      email:
+      currentUser.email,
+
+      balance:0,
+
+      photo:
+      currentUser.photoURL
+
     });
 
   }
@@ -140,6 +253,11 @@ async function loadUser(){
   updateBalance();
 
 }
+
+
+// =========================
+// NAVIGATION
+// =========================
 
 navItems.forEach(item => {
 
@@ -179,10 +297,24 @@ navItems.forEach(item => {
 
 });
 
+
+// =========================
+// WATCH AD
+// =========================
+
 watchAdBtn.addEventListener(
 'click',
 
 async () => {
+
+  if(!currentUser){
+
+    alert(
+    'Login first'
+    );
+
+    return;
+  }
 
   if(isCooldown) return;
 
@@ -226,6 +358,11 @@ async () => {
 
 });
 
+
+// =========================
+// REWARD
+// =========================
+
 async function rewardUser(){
 
   balance += 10;
@@ -233,7 +370,11 @@ async function rewardUser(){
   updateBalance();
 
   const userRef =
-  doc(db,'users',userId);
+  doc(
+    db,
+    'users',
+    currentUser.uid
+  );
 
   await updateDoc(userRef,{
     balance: increment(10)
@@ -247,7 +388,14 @@ async function rewardUser(){
 
   startCooldown();
 
+  loadLeaderboard();
+
 }
+
+
+// =========================
+// UPDATE BALANCE
+// =========================
 
 function updateBalance(){
 
@@ -258,6 +406,11 @@ function updateBalance(){
   balance.toFixed(2);
 
 }
+
+
+// =========================
+// COOLDOWN
+// =========================
 
 function startCooldown(){
 
@@ -303,6 +456,11 @@ function startCooldown(){
 
 }
 
+
+// =========================
+// DAILY REWARD
+// =========================
+
 checkDailyReward();
 
 function checkDailyReward(){
@@ -347,6 +505,43 @@ function giveDailyReward(){
   );
 
 }
+
+
+// =========================
+// LEADERBOARD
+// =========================
+
+async function loadLeaderboard(){
+
+  const querySnapshot =
+  await getDocs(
+    collection(db,'users')
+  );
+
+  let users = [];
+
+  querySnapshot.forEach(doc => {
+
+    users.push(doc.data());
+
+  });
+
+  users.sort(
+    (a,b)=>
+    b.balance - a.balance
+  );
+
+  console.log(
+    'Leaderboard:',
+    users
+  );
+
+}
+
+
+// =========================
+// WITHDRAW
+// =========================
 
 if(withdrawBtn){
 
