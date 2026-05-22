@@ -889,51 +889,40 @@ async function loadWithdrawRequests(){
 
 }
 
+
 // =========================
-// TELEGRAM MINI APP
+// TELEGRAM TEST CARD
 // =========================
 
-if(window.Telegram){
+const tgContainer =
+document.getElementById(
+'telegram-user'
+);
 
-  Telegram.WebApp.ready();
+if(tgContainer){
 
-  Telegram.WebApp.expand();
+  tgContainer.innerHTML =
 
-  const tgUser =
-  Telegram.WebApp.initDataUnsafe.user;
+  `
+  <div class="telegram-card">
 
-  if(tgUser){
+  <img
+  src="https://i.pravatar.cc/150"
+  class="telegram-avatar">
 
-    const tgCard =
-    document.createElement('div');
+  <div>
 
-    tgCard.className =
-    'telegram-card';
+  <div class="telegram-name">
+  Telegram User
+  </div>
 
-    tgCard.innerHTML =
+  <div class="telegram-username">
+  @TestUser
+  </div>
 
-    `
-    <img
-    src="https://t.me/i/userpic/320/${tgUser.username}.jpg"
-    class="telegram-avatar">
+  </div>
 
-    <div>
-
-      <div class="telegram-name">
-      ${tgUser.first_name}
-      </div>
-
-      <div class="telegram-username">
-      @${tgUser.username}
-      </div>
-
-    </div>
-    `;
-
-    document.getElementById(
-      'telegram-user'
-    ).appendChild(tgCard);
-
-  }
+  </div>
+  `;
 
 }
