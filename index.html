@@ -3,21 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>MIRA NETWORK</title>
 
-  <!-- Monetag SDK -->
   <script src="https://libtl.com/sdk.js"
           data-zone="9027378"
           data-sdk="show_9027378"></script>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- BACKGROUND EFFECT -->
+<!-- SPLASH SCREEN -->
+<div id="splash-screen">
+  <div class="loader-logo">MIRA</div>
+</div>
+
+<!-- SOUND -->
+<audio id="click-sound">
+  <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+          type="audio/mpeg">
+</audio>
+
+<!-- BACKGROUND -->
 <div class="bg-blur blur-1"></div>
 <div class="bg-blur blur-2"></div>
 
@@ -37,14 +45,9 @@
 
   </header>
 
-
-  <!-- ========================= -->
-  <!-- HOME PAGE -->
-  <!-- ========================= -->
-
+  <!-- HOME -->
   <div id="home-page" class="page">
 
-    <!-- BALANCE CARD -->
     <section class="wallet-card">
 
       <div class="wallet-top">
@@ -57,54 +60,33 @@
         <small>MIRA</small>
       </div>
 
-      <div class="wallet-bottom">
-
-        <div>
-          <p>Total Earned</p>
-          <strong>1,250 MIRA</strong>
-        </div>
-
-        <div>
-          <p>Ads Watched</p>
-          <strong>124</strong>
-        </div>
-
-      </div>
-
     </section>
 
-
-    <!-- PROMO CARD -->
     <section class="promo-card">
 
       <div>
         <h2>Earn Free Tokens</h2>
 
         <p>
-          Watch ads and collect MIRA rewards instantly.
-          Build your crypto future.
+          Watch ads and collect rewards instantly.
         </p>
       </div>
 
-      <div class="promo-icon">
-        ⚡
-      </div>
+      <div class="promo-icon">⚡</div>
 
     </section>
 
-
-    <!-- MAIN BUTTON -->
     <section class="main-action">
 
-      <button id="watch-ad-btn" class="earn-btn">
+      <button id="watch-ad-btn"
+              class="earn-btn">
 
-        <span class="play-icon">▶</span>
-
-        Watch Ad +10 MIRA
+        ▶ Watch Ad +10 MIRA
 
       </button>
 
-      <p id="status-msg" class="status-msg"></p>
+      <p id="status-msg"
+         class="status-msg"></p>
 
       <div id="cooldown-text"
            class="cooldown hidden">
@@ -116,39 +98,9 @@
 
     </section>
 
-
-    <!-- STATS -->
-    <section class="stats-grid">
-
-      <div class="stat-box">
-        <h3>Level</h3>
-        <p>Bronze</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>Daily Bonus</h3>
-        <p>+50</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>Referrals</h3>
-        <p>12</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>Rank</h3>
-        <p>#82</p>
-      </div>
-
-    </section>
-
   </div>
 
-
-  <!-- ========================= -->
-  <!-- WALLET PAGE -->
-  <!-- ========================= -->
-
+  <!-- WALLET -->
   <div id="wallet-page"
        class="page"
        style="display:none;">
@@ -178,11 +130,7 @@
 
   </div>
 
-
-  <!-- ========================= -->
-  <!-- FRIENDS PAGE -->
-  <!-- ========================= -->
-
+  <!-- FRIENDS -->
   <div id="friends-page"
        class="page"
        style="display:none;">
@@ -190,17 +138,6 @@
     <section class="wallet-card">
 
       <h2>Referral Program</h2>
-
-      <p style="
-         margin-top:15px;
-         color:#cbd5e1;
-         line-height:1.6;
-      ">
-
-        Invite friends and earn
-        bonus MIRA rewards.
-
-      </p>
 
       <div class="promo-card"
            style="margin-top:20px;">
@@ -223,11 +160,7 @@
 
   </div>
 
-
-  <!-- ========================= -->
-  <!-- SETTINGS PAGE -->
-  <!-- ========================= -->
-
+  <!-- SETTINGS -->
   <div id="settings-page"
        class="page"
        style="display:none;">
@@ -252,23 +185,11 @@
 
       </div>
 
-      <div class="stat-box"
-           style="margin-top:15px;">
-
-        <h3>Version</h3>
-        <p>v1.0</p>
-
-      </div>
-
     </section>
 
   </div>
 
-
-  <!-- ========================= -->
-  <!-- BOTTOM NAVIGATION -->
-  <!-- ========================= -->
-
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
 
     <button class="nav-item active"
@@ -279,7 +200,6 @@
 
     </button>
 
-
     <button class="nav-item"
             data-page="wallet-page">
 
@@ -288,7 +208,6 @@
 
     </button>
 
-
     <button class="nav-item"
             data-page="friends-page">
 
@@ -296,7 +215,6 @@
       <p>Friends</p>
 
     </button>
-
 
     <button class="nav-item"
             data-page="settings-page">
@@ -310,7 +228,6 @@
 
 </div>
 
-<!-- JS -->
 <script src="app.js"></script>
 
 </body>
