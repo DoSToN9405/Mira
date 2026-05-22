@@ -472,3 +472,81 @@ body{
   }
 
 }
+/* ========================= */
+/* ADMIN PANEL */
+/* ========================= */
+
+.admin-request{
+
+  background:#111827;
+
+  border-radius:20px;
+
+  padding:18px;
+
+  margin-top:15px;
+
+  border:1px solid
+  rgba(255,255,255,.08);
+
+}
+
+.admin-request p{
+
+  margin-top:6px;
+
+  color:#cbd5e1;
+
+  word-break:break-all;
+
+}
+
+.admin-actions{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:15px;
+
+}
+
+.approve-btn{
+
+  flex:1;
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#22c55e;
+
+  color:white;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+}
+
+.reject-btn{
+
+  flex:1;
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:#ef4444;
+
+  color:white;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+}
