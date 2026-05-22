@@ -152,6 +152,11 @@ document.getElementById(
 'leaderboard-list'
 );
 
+const referralCode =
+document.getElementById(
+'referral-code'
+);
+
 
 // =========================
 // USER DATA
@@ -242,6 +247,9 @@ async (user) => {
     userName.innerText =
     user.displayName;
 
+    referralCode.innerText =
+    user.uid.substring(0,6);
+
     await loadUser();
 
     loadLeaderboard();
@@ -290,7 +298,12 @@ async function loadUser(){
       currentUser.photoURL,
 
       created:
-      Date.now()
+      Date.now(),
+
+      referrals:0,
+
+      referralCode:
+      currentUser.uid.substring(0,6)
 
     });
 
