@@ -17,7 +17,7 @@ data-sdk="show_9027378"></script>
 <!-- TON CONNECT -->
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
-<!-- TELEGRAM LOGIN -->
+<!-- TELEGRAM -->
 <script async
 src="https://telegram.org/js/telegram-widget.js?22"
 
@@ -25,7 +25,7 @@ data-telegram-login="mira_network_bot"
 
 data-size="large"
 
-data-radius="12"
+data-radius="14"
 
 data-auth-url="https://miranetwok.vercel.app/"
 
@@ -33,7 +33,6 @@ data-request-access="write">
 
 </script>
 
-<!-- CSS -->
 <link rel="stylesheet"
 href="style.css">
 
@@ -50,7 +49,7 @@ MIRA
 
 </div>
 
-<!-- SOUND -->
+<!-- AUDIO -->
 <audio id="click-sound">
 
 <source
@@ -85,9 +84,7 @@ M
 </header>
 
 <!-- TON CONNECT -->
-<div id="ton-connect"
-style="margin-bottom:20px;">
-</div>
+<div id="ton-connect"></div>
 
 <!-- HOME -->
 <div id="home-page"
@@ -122,7 +119,7 @@ class="page">
 <h2>Earn Free Tokens</h2>
 
 <p>
-Watch ads and collect rewards instantly.
+Watch ads and earn MIRA rewards instantly.
 </p>
 
 </div>
@@ -182,8 +179,7 @@ placeholder="TON Wallet Address"
 class="withdraw-input">
 
 <button class="earn-btn"
-id="withdraw-btn"
-style="margin-top:15px;">
+id="withdraw-btn">
 
 Request Withdraw
 
@@ -210,7 +206,7 @@ style="margin-top:20px;">
 <h3>Your Referral Code</h3>
 
 <p id="referral-code">
-MIRA-72829
+Loading...
 </p>
 
 </div>
@@ -234,8 +230,7 @@ style="display:none;">
 
 <h2>Settings</h2>
 
-<div class="stat-box"
-style="margin-top:20px;">
+<div class="stat-box">
 
 <h3>Theme</h3>
 
@@ -243,8 +238,7 @@ style="margin-top:20px;">
 
 </div>
 
-<div class="stat-box"
-style="margin-top:15px;">
+<div class="stat-box">
 
 <h3>Language</h3>
 
@@ -260,8 +254,7 @@ style="margin-top:20px;">
 
 <h2>User Profile</h2>
 
-<div class="stat-box"
-style="margin-top:15px;">
+<div class="stat-box">
 
 <p id="user-name">
 Guest
@@ -279,12 +272,9 @@ style="margin-top:20px;">
 
 <div id="leaderboard-list">
 
-<div class="stat-box"
-style="margin-top:15px;">
+<div class="stat-box">
 
-<p>#1 USER</p>
-
-<strong>12,500 MIRA</strong>
+<p>Loading...</p>
 
 </div>
 
@@ -294,7 +284,7 @@ style="margin-top:15px;">
 
 </div>
 
-<!-- ADMIN PAGE -->
+<!-- ADMIN -->
 <div id="admin-page"
 class="page"
 style="display:none;">
@@ -305,8 +295,7 @@ style="display:none;">
 
 <div id="withdraw-list">
 
-<div class="stat-box"
-style="margin-top:15px;">
+<div class="stat-box">
 
 <p>No withdraw requests</p>
 
@@ -318,7 +307,7 @@ style="margin-top:15px;">
 
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- NAV -->
 <nav class="bottom-nav">
 
 <button class="nav-item active"
@@ -370,7 +359,6 @@ data-page="admin-page">
 
 </div>
 
-<!-- APP JS -->
 <script type="module"
 src="app.js"></script>
 
