@@ -2,27 +2,56 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
   <title>MIRA NETWORK</title>
 
+  <!-- MONETAG -->
   <script src="https://libtl.com/sdk.js"
           data-zone="9027378"
           data-sdk="show_9027378"></script>
 
-  <link rel="stylesheet" href="style.css">
+  <!-- TELEGRAM LOGIN -->
+  <script async
+  src="https://telegram.org/js/telegram-widget.js?22"
+
+  data-telegram-login="mira_network_bot"
+
+  data-size="large"
+
+  data-radius="12"
+
+  data-auth-url="https://miranetwok.vercel.app/"
+
+  data-request-access="write">
+
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet"
+        href="style.css">
+
 </head>
 
 <body>
 
 <!-- SPLASH SCREEN -->
 <div id="splash-screen">
-  <div class="loader-logo">MIRA</div>
+
+  <div class="loader-logo">
+    MIRA
+  </div>
+
 </div>
 
 <!-- SOUND -->
 <audio id="click-sound">
-  <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
-          type="audio/mpeg">
+
+  <source
+  src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+  type="audio/mpeg">
+
 </audio>
 
 <!-- BACKGROUND -->
@@ -35,8 +64,13 @@
   <header class="topbar">
 
     <div>
-      <p class="small-text">Welcome Back</p>
+
+      <p class="small-text">
+        Welcome Back
+      </p>
+
       <h1>MIRA NETWORK</h1>
+
     </div>
 
     <div class="profile-circle">
@@ -45,36 +79,52 @@
 
   </header>
 
-  <!-- HOME -->
-  <div id="home-page" class="page">
+
+  <!-- HOME PAGE -->
+  <div id="home-page"
+       class="page">
 
     <section class="wallet-card">
 
       <div class="wallet-top">
+
         <span>Your Balance</span>
+
         <span class="live-dot"></span>
+
       </div>
 
       <div class="wallet-balance">
-        <span id="token-balance">0.00</span>
+
+        <span id="token-balance">
+          0.00
+        </span>
+
         <small>MIRA</small>
+
       </div>
 
     </section>
 
+
     <section class="promo-card">
 
       <div>
+
         <h2>Earn Free Tokens</h2>
 
         <p>
           Watch ads and collect rewards instantly.
         </p>
+
       </div>
 
-      <div class="promo-icon">⚡</div>
+      <div class="promo-icon">
+        ⚡
+      </div>
 
     </section>
+
 
     <section class="main-action">
 
@@ -100,7 +150,8 @@
 
   </div>
 
-  <!-- WALLET -->
+
+  <!-- WALLET PAGE -->
   <div id="wallet-page"
        class="page"
        style="display:none;">
@@ -119,10 +170,16 @@
 
       </div>
 
-      <button class="earn-btn"
-              style="margin-top:20px;">
+      <input type="text"
+             id="wallet-address"
+             placeholder="TON Wallet Address"
+             class="withdraw-input">
 
-        Withdraw
+      <button class="earn-btn"
+              id="withdraw-btn"
+              style="margin-top:15px;">
+
+        Request Withdraw
 
       </button>
 
@@ -130,7 +187,8 @@
 
   </div>
 
-  <!-- FRIENDS -->
+
+  <!-- FRIENDS PAGE -->
   <div id="friends-page"
        class="page"
        style="display:none;">
@@ -146,7 +204,9 @@
 
           <h3>Your Referral Code</h3>
 
-          <p>MIRA-72829</p>
+          <p id="referral-code">
+            MIRA-72829
+          </p>
 
         </div>
 
@@ -160,7 +220,8 @@
 
   </div>
 
-  <!-- SETTINGS -->
+
+  <!-- SETTINGS PAGE -->
   <div id="settings-page"
        class="page"
        style="display:none;">
@@ -173,6 +234,7 @@
            style="margin-top:20px;">
 
         <h3>Theme</h3>
+
         <p>Dark Mode</p>
 
       </div>
@@ -181,13 +243,51 @@
            style="margin-top:15px;">
 
         <h3>Language</h3>
+
         <p>Uzbek</p>
 
       </div>
 
     </section>
 
+
+    <!-- LEADERBOARD -->
+    <div class="wallet-card"
+         style="margin-top:20px;">
+
+      <h2>Leaderboard</h2>
+
+      <div class="stat-box"
+           style="margin-top:15px;">
+
+        <p>#1 USER</p>
+
+        <strong>12,500 MIRA</strong>
+
+      </div>
+
+      <div class="stat-box"
+           style="margin-top:15px;">
+
+        <p>#2 USER</p>
+
+        <strong>8,400 MIRA</strong>
+
+      </div>
+
+      <div class="stat-box"
+           style="margin-top:15px;">
+
+        <p>#3 USER</p>
+
+        <strong>5,200 MIRA</strong>
+
+      </div>
+
+    </div>
+
   </div>
+
 
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
@@ -196,6 +296,7 @@
             data-page="home-page">
 
       <span>🏠</span>
+
       <p>Home</p>
 
     </button>
@@ -204,6 +305,7 @@
             data-page="wallet-page">
 
       <span>💰</span>
+
       <p>Wallet</p>
 
     </button>
@@ -212,6 +314,7 @@
             data-page="friends-page">
 
       <span>👥</span>
+
       <p>Friends</p>
 
     </button>
@@ -220,6 +323,7 @@
             data-page="settings-page">
 
       <span>⚙</span>
+
       <p>Settings</p>
 
     </button>
@@ -228,7 +332,9 @@
 
 </div>
 
-<script type="module" src="app.js"></script>
+<!-- APP JS -->
+<script type="module"
+        src="app.js"></script>
 
 </body>
 </html>
