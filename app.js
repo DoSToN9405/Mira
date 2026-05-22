@@ -9,7 +9,10 @@ import {
   updateDoc,
   increment,
   collection,
-  getDocs
+  getDocs,
+  query,
+  orderBy,
+  limit
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -70,6 +73,22 @@ new GoogleAuthProvider();
 
 
 // =========================
+// TON CONNECT
+// =========================
+
+const tonConnectUI =
+new TON_CONNECT_UI.TonConnectUI({
+
+  manifestUrl:
+  'https://miranetwok.vercel.app/tonconnect-manifest.json',
+
+  buttonRootId:
+  'ton-connect'
+
+});
+
+
+// =========================
 // ELEMENTS
 // =========================
 
@@ -123,6 +142,16 @@ document.getElementById(
 'withdraw-btn'
 );
 
+const userName =
+document.getElementById(
+'user-name'
+);
+
+const leaderboardList =
+document.getElementById(
+'leaderboard-list'
+);
+
 
 // =========================
 // USER DATA
@@ -137,6 +166,8 @@ let isCooldown = false;
 let cooldownTime = 30;
 
 let loginBtn = null;
+
+let lastAdWatch = 0;
 
 
 // =========================
@@ -189,7 +220,7 @@ function createLoginButton(){
 
 
 // =========================
-// AUTH STATE
+// AUTH
 // =========================
 
 onAuthStateChanged(
@@ -202,13 +233,14 @@ async (user) => {
 
     currentUser = user;
 
-    // HIDE LOGIN BUTTON
-
     if(loginBtn){
 
       loginBtn.remove();
 
     }
+
+    userName.innerText =
+    user.displayName;
 
     await loadUser();
 
@@ -253,7 +285,10 @@ async function loadUser(){
       balance:0,
 
       photo:
-      currentUser.photoURL
+      currentUser.photoURL,
+
+      created:
+      Date.now()
 
     });
 
@@ -325,6 +360,21 @@ async () => {
     return;
   }
 
+  // ANTI CHEAT
+
+  const now = Date.now();
+
+  if(now - lastAdWatch < 25000){
+
+    alert(
+    'Wait before next ad'
+    );
+
+    return;
+  }
+
+  lastAdWatch = now;
+
   if(isCooldown) return;
 
   clickSound.play();
@@ -369,7 +419,7 @@ async () => {
 
 
 // =========================
-// REWARD USER
+// REWARD
 // =========================
 
 async function rewardUser(){
@@ -517,33 +567,62 @@ function giveDailyReward(){
 
 
 // =========================
-// LEADERBOARD
+// LEADERBOARD UI
 // =========================
 
 async function loadLeaderboard(){
 
-  const querySnapshot =
-  await getDocs(
-    collection(db,'users')
+  leaderboardList.innerHTML =
+  '';
+
+  const q =
+  query(
+
+    collection(db,'users'),
+
+    orderBy('balance','desc'),
+
+    limit(10)
+
   );
 
-  let users = [];
+  const querySnapshot =
+  await getDocs(q);
 
-  querySnapshot.forEach(doc => {
+  let rank = 1;
 
-    users.push(doc.data());
+  querySnapshot.forEach(docu => {
+
+    const user =
+    docu.data();
+
+    const item =
+    document.createElement(
+      'div'
+    );
+
+    item.className =
+    'stat-box';
+
+    item.innerHTML =
+
+    `
+    <p>
+    #${rank}
+    ${user.name || 'User'}
+    </p>
+
+    <strong>
+    ${user.balance || 0} MIRA
+    </strong>
+    `;
+
+    leaderboardList
+    .appendChild(item);
+
+    rank++;
 
   });
-
-  users.sort(
-    (a,b)=>
-    b.balance - a.balance
-  );
-
-  console.log(
-    'Leaderboard:',
-    users
-  );
 
 }
 
