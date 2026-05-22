@@ -246,6 +246,8 @@ async (user) => {
 
     loadLeaderboard();
 
+    loadWithdrawRequests();
+
   }
 
 });
@@ -704,14 +706,16 @@ if(withdrawBtn){
     'Withdraw request sent!'
     );
 
+    loadWithdrawRequests();
+
   });
 
 }
-// =========================
-// ADMIN WITHDRAW LIST
-// =========================
 
-loadWithdrawRequests();
+
+// =========================
+// ADMIN PANEL
+// =========================
 
 async function loadWithdrawRequests(){
 
@@ -765,7 +769,7 @@ async function loadWithdrawRequests(){
     ${data.amount} MIRA
     </p>
 
-    <p>
+    <p id="status-${docu.id}">
     Status:
     ${data.status}
     </p>
@@ -773,14 +777,16 @@ async function loadWithdrawRequests(){
     <div class="admin-actions">
 
       <button
-      class="approve-btn">
+      class="approve-btn"
+      id="approve-${docu.id}">
 
       Approve
 
       </button>
 
       <button
-      class="reject-btn">
+      class="reject-btn"
+      id="reject-${docu.id}">
 
       Reject
 
@@ -792,6 +798,79 @@ async function loadWithdrawRequests(){
     withdrawList.appendChild(
       item
     );
+
+    // APPROVE
+
+    document.getElementById(
+
+    `approve-${docu.id}`
+
+    ).addEventListener(
+
+    'click',
+
+    async () => {
+
+      await updateDoc(
+
+        doc(
+          db,
+          'withdraws',
+          docu.id
+        ),
+
+        {
+          status:'approved'
+        }
+
+      );
+
+      document.getElementById(
+
+      `status-${docu.id}`
+
+      ).innerText =
+
+      'Status: approved';
+
+    });
+
+
+    // REJECT
+
+    document.getElementById(
+
+    `reject-${docu.id}`
+
+    ).addEventListener(
+
+    'click',
+
+    async () => {
+
+      await updateDoc(
+
+        doc(
+          db,
+          'withdraws',
+          docu.id
+        ),
+
+        {
+          status:'rejected'
+        }
+
+      );
+
+      document.getElementById(
+
+      `status-${docu.id}`
+
+      ).innerText =
+
+      'Status: rejected';
+
+    });
 
   });
 
