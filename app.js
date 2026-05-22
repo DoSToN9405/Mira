@@ -707,3 +707,92 @@ if(withdrawBtn){
   });
 
 }
+// =========================
+// ADMIN WITHDRAW LIST
+// =========================
+
+loadWithdrawRequests();
+
+async function loadWithdrawRequests(){
+
+  const withdrawList =
+
+  document.getElementById(
+    'withdraw-list'
+  );
+
+  if(!withdrawList) return;
+
+  withdrawList.innerHTML = '';
+
+  const querySnapshot =
+  await getDocs(
+    collection(db,'withdraws')
+  );
+
+  querySnapshot.forEach(docu => {
+
+    const data =
+    docu.data();
+
+    const item =
+    document.createElement(
+      'div'
+    );
+
+    item.className =
+    'admin-request';
+
+    item.innerHTML =
+
+    `
+    <h3>
+    Withdraw Request
+    </h3>
+
+    <p>
+    Email:
+    ${data.email}
+    </p>
+
+    <p>
+    Wallet:
+    ${data.wallet}
+    </p>
+
+    <p>
+    Amount:
+    ${data.amount} MIRA
+    </p>
+
+    <p>
+    Status:
+    ${data.status}
+    </p>
+
+    <div class="admin-actions">
+
+      <button
+      class="approve-btn">
+
+      Approve
+
+      </button>
+
+      <button
+      class="reject-btn">
+
+      Reject
+
+      </button>
+
+    </div>
+    `;
+
+    withdrawList.appendChild(
+      item
+    );
+
+  });
+
+}
