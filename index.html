@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MIRA NETWORK</title>
+
+  <!-- Monetag SDK -->
+  <script src="https://libtl.com/sdk.js"
+          data-zone="9027378"
+          data-sdk="show_9027378"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- BACKGROUND EFFECT -->
+<div class="bg-blur blur-1"></div>
+<div class="bg-blur blur-2"></div>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+
+    <div>
+      <p class="small-text">Welcome Back</p>
+      <h1>MIRA NETWORK</h1>
+    </div>
+
+    <div class="profile-circle">
+      M
+    </div>
+
+  </header>
+
+
+  <!-- ========================= -->
+  <!-- HOME PAGE -->
+  <!-- ========================= -->
+
+  <div id="home-page" class="page">
+
+    <!-- BALANCE CARD -->
+    <section class="wallet-card">
+
+      <div class="wallet-top">
+        <span>Your Balance</span>
+        <span class="live-dot"></span>
+      </div>
+
+      <div class="wallet-balance">
+        <span id="token-balance">0.00</span>
+        <small>MIRA</small>
+      </div>
+
+      <div class="wallet-bottom">
+
+        <div>
+          <p>Total Earned</p>
+          <strong>1,250 MIRA</strong>
+        </div>
+
+        <div>
+          <p>Ads Watched</p>
+          <strong>124</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROMO CARD -->
+    <section class="promo-card">
+
+      <div>
+        <h2>Earn Free Tokens</h2>
+
+        <p>
+          Watch ads and collect MIRA rewards instantly.
+          Build your crypto future.
+        </p>
+      </div>
+
+      <div class="promo-icon">
+        ⚡
+      </div>
+
+    </section>
+
+
+    <!-- MAIN BUTTON -->
+    <section class="main-action">
+
+      <button id="watch-ad-btn" class="earn-btn">
+
+        <span class="play-icon">▶</span>
+
+        Watch Ad +10 MIRA
+
+      </button>
+
+      <p id="status-msg" class="status-msg"></p>
+
+      <div id="cooldown-text"
+           class="cooldown hidden">
+
+        Next reward in
+        <span id="timer">30</span>s
+
+      </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-grid">
+
+      <div class="stat-box">
+        <h3>Level</h3>
+        <p>Bronze</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>Daily Bonus</h3>
+        <p>+50</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>Referrals</h3>
+        <p>12</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>Rank</h3>
+        <p>#82</p>
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- WALLET PAGE -->
+  <!-- ========================= -->
+
+  <div id="wallet-page"
+       class="page"
+       style="display:none;">
+
+    <section class="wallet-card">
+
+      <h2>Wallet</h2>
+
+      <div class="wallet-balance">
+
+        <span id="wallet-balance-page">
+          0.00
+        </span>
+
+        <small>MIRA</small>
+
+      </div>
+
+      <button class="earn-btn"
+              style="margin-top:20px;">
+
+        Withdraw
+
+      </button>
+
+    </section>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- FRIENDS PAGE -->
+  <!-- ========================= -->
+
+  <div id="friends-page"
+       class="page"
+       style="display:none;">
+
+    <section class="wallet-card">
+
+      <h2>Referral Program</h2>
+
+      <p style="
+         margin-top:15px;
+         color:#cbd5e1;
+         line-height:1.6;
+      ">
+
+        Invite friends and earn
+        bonus MIRA rewards.
+
+      </p>
+
+      <div class="promo-card"
+           style="margin-top:20px;">
+
+        <div>
+
+          <h3>Your Referral Code</h3>
+
+          <p>MIRA-72829</p>
+
+        </div>
+
+        <div class="promo-icon">
+          👥
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- SETTINGS PAGE -->
+  <!-- ========================= -->
+
+  <div id="settings-page"
+       class="page"
+       style="display:none;">
+
+    <section class="wallet-card">
+
+      <h2>Settings</h2>
+
+      <div class="stat-box"
+           style="margin-top:20px;">
+
+        <h3>Theme</h3>
+        <p>Dark Mode</p>
+
+      </div>
+
+      <div class="stat-box"
+           style="margin-top:15px;">
+
+        <h3>Language</h3>
+        <p>Uzbek</p>
+
+      </div>
+
+      <div class="stat-box"
+           style="margin-top:15px;">
+
+        <h3>Version</h3>
+        <p>v1.0</p>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- BOTTOM NAVIGATION -->
+  <!-- ========================= -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-item active"
+            data-page="home-page">
+
+      <span>🏠</span>
+      <p>Home</p>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="wallet-page">
+
+      <span>💰</span>
+      <p>Wallet</p>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="friends-page">
+
+      <span>👥</span>
+      <p>Friends</p>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="settings-page">
+
+      <span>⚙</span>
+      <p>Settings</p>
+
+    </button>
+
+  </nav>
+
+</div>
+
+<!-- JS -->
+<script src="app.js"></script>
+
+</body>
+</html>
