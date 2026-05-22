@@ -1,7 +1,3 @@
-// =========================
-// FIREBASE IMPORT
-// =========================
-
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -14,11 +10,6 @@ import {
   increment
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-// =========================
-// FIREBASE CONFIG
-// =========================
 
 const firebaseConfig = {
 
@@ -45,21 +36,11 @@ const firebaseConfig = {
 
 };
 
-
-// =========================
-// INIT FIREBASE
-// =========================
-
 const app =
 initializeApp(firebaseConfig);
 
 const db =
 getFirestore(app);
-
-
-// =========================
-// USER ID
-// =========================
 
 let userId =
 localStorage.getItem('mira_user_id');
@@ -78,11 +59,6 @@ if(!userId){
   );
 
 }
-
-
-// =========================
-// ELEMENTS
-// =========================
 
 const balanceDisplay =
 document.getElementById('token-balance');
@@ -127,21 +103,16 @@ document.getElementById(
 'click-sound'
 );
 
-
-// =========================
-// USER DATA
-// =========================
+const withdrawBtn =
+document.getElementById(
+'withdraw-btn'
+);
 
 let balance = 0;
 
 let isCooldown = false;
 
 let cooldownTime = 30;
-
-
-// =========================
-// LOAD USER
-// =========================
 
 loadUser();
 
@@ -169,11 +140,6 @@ async function loadUser(){
   updateBalance();
 
 }
-
-
-// =========================
-// NAVIGATION
-// =========================
 
 navItems.forEach(item => {
 
@@ -212,11 +178,6 @@ navItems.forEach(item => {
   });
 
 });
-
-
-// =========================
-// WATCH AD
-// =========================
 
 watchAdBtn.addEventListener(
 'click',
@@ -265,11 +226,6 @@ async () => {
 
 });
 
-
-// =========================
-// REWARD
-// =========================
-
 async function rewardUser(){
 
   balance += 10;
@@ -293,11 +249,6 @@ async function rewardUser(){
 
 }
 
-
-// =========================
-// UPDATE BALANCE
-// =========================
-
 function updateBalance(){
 
   balanceDisplay.innerText =
@@ -307,11 +258,6 @@ function updateBalance(){
   balance.toFixed(2);
 
 }
-
-
-// =========================
-// COOLDOWN
-// =========================
 
 function startCooldown(){
 
@@ -354,5 +300,80 @@ function startCooldown(){
     }
 
   },1000);
+
+}
+
+checkDailyReward();
+
+function checkDailyReward(){
+
+  let lastClaim =
+  localStorage.getItem(
+    'daily_reward'
+  );
+
+  let now = Date.now();
+
+  if(!lastClaim){
+
+    giveDailyReward();
+
+    return;
+  }
+
+  let diff =
+  now - parseInt(lastClaim);
+
+  if(diff >= 86400000){
+
+    giveDailyReward();
+
+  }
+
+}
+
+function giveDailyReward(){
+
+  balance += 50;
+
+  updateBalance();
+
+  statusMsg.innerText =
+  '🎁 Daily Reward +50 MIRA';
+
+  localStorage.setItem(
+    'daily_reward',
+    Date.now()
+  );
+
+}
+
+if(withdrawBtn){
+
+  withdrawBtn.addEventListener(
+  'click',
+
+  () => {
+
+    const wallet =
+
+    document.getElementById(
+      'wallet-address'
+    ).value;
+
+    if(wallet.length < 10){
+
+      alert(
+      'Enter valid TON wallet'
+      );
+
+      return;
+    }
+
+    alert(
+    'Withdraw request sent!'
+    );
+
+  });
 
 }
