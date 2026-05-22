@@ -1,340 +1,345 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
 
-  <title>MIRA NETWORK</title>
+<meta charset="UTF-8">
 
-  <!-- MONETAG -->
-  <script src="https://libtl.com/sdk.js"
-          data-zone="9027378"
-          data-sdk="show_9027378"></script>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-  <!-- TELEGRAM LOGIN -->
-  <script async
-  src="https://telegram.org/js/telegram-widget.js?22"
+<title>MIRA NETWORK</title>
 
-  data-telegram-login="mira_network_bot"
+<!-- MONETAG -->
+<script src="https://libtl.com/sdk.js"
+data-zone="9027378"
+data-sdk="show_9027378"></script>
 
-  data-size="large"
+<!-- TON CONNECT -->
+<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
-  data-radius="12"
+<!-- TELEGRAM LOGIN -->
+<script async
+src="https://telegram.org/js/telegram-widget.js?22"
 
-  data-auth-url="https://miranetwok.vercel.app/"
+data-telegram-login="mira_network_bot"
 
-  data-request-access="write">
+data-size="large"
 
-  </script>
+data-radius="12"
 
-  <!-- CSS -->
-  <link rel="stylesheet"
-        href="style.css">
+data-auth-url="https://miranetwok.vercel.app/"
+
+data-request-access="write">
+
+</script>
+
+<!-- CSS -->
+<link rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
 
-<!-- SPLASH SCREEN -->
+<!-- SPLASH -->
 <div id="splash-screen">
 
-  <div class="loader-logo">
-    MIRA
-  </div>
+<div class="loader-logo">
+MIRA
+</div>
 
 </div>
 
 <!-- SOUND -->
 <audio id="click-sound">
 
-  <source
-  src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
-  type="audio/mpeg">
+<source
+src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+type="audio/mpeg">
 
 </audio>
 
-<!-- BACKGROUND -->
+<!-- BG -->
 <div class="bg-blur blur-1"></div>
 <div class="bg-blur blur-2"></div>
 
 <div class="app">
 
-  <!-- TOPBAR -->
-  <header class="topbar">
+<!-- TOPBAR -->
+<header class="topbar">
 
-    <div>
+<div>
 
-      <p class="small-text">
-        Welcome Back
-      </p>
+<p class="small-text">
+Welcome Back
+</p>
 
-      <h1>MIRA NETWORK</h1>
+<h1>MIRA NETWORK</h1>
 
-    </div>
+</div>
 
-    <div class="profile-circle">
-      M
-    </div>
+<div class="profile-circle">
+M
+</div>
 
-  </header>
+</header>
 
+<!-- TON CONNECT -->
+<div id="ton-connect"
+style="margin-bottom:20px;">
+</div>
 
-  <!-- HOME PAGE -->
-  <div id="home-page"
-       class="page">
+<!-- HOME -->
+<div id="home-page"
+class="page">
 
-    <section class="wallet-card">
+<section class="wallet-card">
 
-      <div class="wallet-top">
+<div class="wallet-top">
 
-        <span>Your Balance</span>
+<span>Your Balance</span>
 
-        <span class="live-dot"></span>
+<span class="live-dot"></span>
 
-      </div>
+</div>
 
-      <div class="wallet-balance">
+<div class="wallet-balance">
 
-        <span id="token-balance">
-          0.00
-        </span>
+<span id="token-balance">
+0.00
+</span>
 
-        <small>MIRA</small>
+<small>MIRA</small>
 
-      </div>
+</div>
 
-    </section>
+</section>
 
+<section class="promo-card">
 
-    <section class="promo-card">
+<div>
 
-      <div>
+<h2>Earn Free Tokens</h2>
 
-        <h2>Earn Free Tokens</h2>
+<p>
+Watch ads and collect rewards instantly.
+</p>
 
-        <p>
-          Watch ads and collect rewards instantly.
-        </p>
+</div>
 
-      </div>
+<div class="promo-icon">
+⚡
+</div>
 
-      <div class="promo-icon">
-        ⚡
-      </div>
+</section>
 
-    </section>
+<section class="main-action">
 
+<button id="watch-ad-btn"
+class="earn-btn">
 
-    <section class="main-action">
+▶ Watch Ad +10 MIRA
 
-      <button id="watch-ad-btn"
-              class="earn-btn">
+</button>
 
-        ▶ Watch Ad +10 MIRA
+<p id="status-msg"
+class="status-msg"></p>
 
-      </button>
+<div id="cooldown-text"
+class="cooldown hidden">
 
-      <p id="status-msg"
-         class="status-msg"></p>
+Next reward in
+<span id="timer">30</span>s
 
-      <div id="cooldown-text"
-           class="cooldown hidden">
+</div>
 
-        Next reward in
-        <span id="timer">30</span>s
+</section>
 
-      </div>
+</div>
 
-    </section>
+<!-- WALLET -->
+<div id="wallet-page"
+class="page"
+style="display:none;">
 
-  </div>
+<section class="wallet-card">
 
+<h2>Wallet</h2>
 
-  <!-- WALLET PAGE -->
-  <div id="wallet-page"
-       class="page"
-       style="display:none;">
+<div class="wallet-balance">
 
-    <section class="wallet-card">
+<span id="wallet-balance-page">
+0.00
+</span>
 
-      <h2>Wallet</h2>
+<small>MIRA</small>
 
-      <div class="wallet-balance">
+</div>
 
-        <span id="wallet-balance-page">
-          0.00
-        </span>
+<input type="text"
+id="wallet-address"
+placeholder="TON Wallet Address"
+class="withdraw-input">
 
-        <small>MIRA</small>
+<button class="earn-btn"
+id="withdraw-btn"
+style="margin-top:15px;">
 
-      </div>
+Request Withdraw
 
-      <input type="text"
-             id="wallet-address"
-             placeholder="TON Wallet Address"
-             class="withdraw-input">
+</button>
 
-      <button class="earn-btn"
-              id="withdraw-btn"
-              style="margin-top:15px;">
+</section>
 
-        Request Withdraw
+</div>
 
-      </button>
+<!-- FRIENDS -->
+<div id="friends-page"
+class="page"
+style="display:none;">
 
-    </section>
+<section class="wallet-card">
 
-  </div>
+<h2>Referral Program</h2>
 
+<div class="promo-card"
+style="margin-top:20px;">
 
-  <!-- FRIENDS PAGE -->
-  <div id="friends-page"
-       class="page"
-       style="display:none;">
+<div>
 
-    <section class="wallet-card">
+<h3>Your Referral Code</h3>
 
-      <h2>Referral Program</h2>
+<p id="referral-code">
+MIRA-72829
+</p>
 
-      <div class="promo-card"
-           style="margin-top:20px;">
+</div>
 
-        <div>
+<div class="promo-icon">
+👥
+</div>
 
-          <h3>Your Referral Code</h3>
+</div>
 
-          <p id="referral-code">
-            MIRA-72829
-          </p>
+</section>
 
-        </div>
+</div>
 
-        <div class="promo-icon">
-          👥
-        </div>
+<!-- SETTINGS -->
+<div id="settings-page"
+class="page"
+style="display:none;">
 
-      </div>
+<section class="wallet-card">
 
-    </section>
+<h2>Settings</h2>
 
-  </div>
+<div class="stat-box"
+style="margin-top:20px;">
 
+<h3>Theme</h3>
 
-  <!-- SETTINGS PAGE -->
-  <div id="settings-page"
-       class="page"
-       style="display:none;">
+<p>Dark Mode</p>
 
-    <section class="wallet-card">
+</div>
 
-      <h2>Settings</h2>
+<div class="stat-box"
+style="margin-top:15px;">
 
-      <div class="stat-box"
-           style="margin-top:20px;">
+<h3>Language</h3>
 
-        <h3>Theme</h3>
+<p>Uzbek</p>
 
-        <p>Dark Mode</p>
+</div>
 
-      </div>
+</section>
 
-      <div class="stat-box"
-           style="margin-top:15px;">
+<!-- PROFILE -->
+<div class="wallet-card"
+style="margin-top:20px;">
 
-        <h3>Language</h3>
+<h2>User Profile</h2>
 
-        <p>Uzbek</p>
+<div class="stat-box"
+style="margin-top:15px;">
 
-      </div>
+<p id="user-name">
+Guest
+</p>
 
-    </section>
+</div>
 
+</div>
 
-    <!-- LEADERBOARD -->
-    <div class="wallet-card"
-         style="margin-top:20px;">
+<!-- LEADERBOARD -->
+<div class="wallet-card"
+style="margin-top:20px;">
 
-      <h2>Leaderboard</h2>
+<h2>Leaderboard</h2>
 
-      <div class="stat-box"
-           style="margin-top:15px;">
+<div id="leaderboard-list">
 
-        <p>#1 USER</p>
+<div class="stat-box"
+style="margin-top:15px;">
 
-        <strong>12,500 MIRA</strong>
+<p>#1 USER</p>
 
-      </div>
+<strong>12,500 MIRA</strong>
 
-      <div class="stat-box"
-           style="margin-top:15px;">
+</div>
 
-        <p>#2 USER</p>
+</div>
 
-        <strong>8,400 MIRA</strong>
+</div>
 
-      </div>
+</div>
 
-      <div class="stat-box"
-           style="margin-top:15px;">
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
 
-        <p>#3 USER</p>
+<button class="nav-item active"
+data-page="home-page">
 
-        <strong>5,200 MIRA</strong>
+<span>🏠</span>
 
-      </div>
+<p>Home</p>
 
-    </div>
+</button>
 
-  </div>
+<button class="nav-item"
+data-page="wallet-page">
 
+<span>💰</span>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
+<p>Wallet</p>
 
-    <button class="nav-item active"
-            data-page="home-page">
+</button>
 
-      <span>🏠</span>
+<button class="nav-item"
+data-page="friends-page">
 
-      <p>Home</p>
+<span>👥</span>
 
-    </button>
+<p>Friends</p>
 
-    <button class="nav-item"
-            data-page="wallet-page">
+</button>
 
-      <span>💰</span>
+<button class="nav-item"
+data-page="settings-page">
 
-      <p>Wallet</p>
+<span>⚙</span>
 
-    </button>
+<p>Settings</p>
 
-    <button class="nav-item"
-            data-page="friends-page">
+</button>
 
-      <span>👥</span>
-
-      <p>Friends</p>
-
-    </button>
-
-    <button class="nav-item"
-            data-page="settings-page">
-
-      <span>⚙</span>
-
-      <p>Settings</p>
-
-    </button>
-
-  </nav>
+</nav>
 
 </div>
 
 <!-- APP JS -->
 <script type="module"
-        src="app.js"></script>
+src="app.js"></script>
 
 </body>
 </html>
